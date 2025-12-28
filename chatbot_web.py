@@ -57,7 +57,7 @@ class EncoderRNN(nn.Module):
 
     def forward(self, input_seq, input_lengths, hidden=None):
         embedded = self.embedding(input_seq)
-        packed = torch.nn.utils.rnn.pack_padded_sequence(embedded, input_lengths)
+        packed = torch.nn.utils.rnn.pack_padded_sequence(embedded, input_lengths.cpu())
         outputs, hidden = self.gru(packed, hidden)
         outputs, _ = torch.nn.utils.rnn.pad_packed_sequence(outputs)
         outputs = outputs[:, :, :self.hidden_size] + outputs[:, :, self.hidden_size:]
@@ -268,23 +268,26 @@ def main():
     # 初始化chatbot
     chatbot = ChatbotInterface(checkpoint_path)
 
-    # 创建Gradio界面
-    demo = gr.ChatInterface(
-        fn=chatbot.chat,
-        title="🤖 PyTorch Chatbot",
-        description="基于Cornell Movie Dialogs训练的对话机器人",
-        examples=[
-            "hello",
-            "how are you?",
-            "what is your name?",
-            "where are you from?",
-            "goodbye"
-        ],
-        theme="soft",
-        retry_btn=None,
-        undo_btn="删除上一条",
-        clear_btn="清空对话",
-    )
+    # 创建Gradio界面 - 修复版：移除不兼容的参数
+    try:
+        demo = gr.ChatInterface(
+            fn=chatbot.chat,
+            title="🤖 PyTorch Chatbot",
+            description="基于Cornell Movie Dialogs训练的对话机器人\n\n💡 使用英文输入，句子简短，使用常见词汇",
+            examples=[
+                ["hello"],
+                ["how are you?"],
+                ["what is your name?"],
+                ["where are you from?"],
+                ["goodbye"]
+            ],
+        )
+    except TypeError:
+        # 如果上面失败，使用最简单的版本
+        demo = gr.ChatInterface(
+            fn=chatbot.chat,
+            title="🤖 PyTorch Chatbot",
+        )
 
     # 启动服务
     print("\n" + "="*50)
