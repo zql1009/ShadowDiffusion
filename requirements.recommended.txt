@@ -1,0 +1,51 @@
+# 核心深度学习框架
+torch>=2.0.0,<3.0.0  # PyTorch 2.x 向后兼容,提供更好的性能
+torchvision>=0.15.0  # 需要与torch版本匹配
+einops>=0.6.0
+timm>=0.9.0
+
+# 图像处理
+Pillow>=10.0.0  # 修复安全漏洞
+opencv-python>=4.8.0
+scikit-image>=0.21.0
+rawpy>=0.18.1
+PyWavelets>=1.4.0
+
+# 科学计算
+numpy>=1.24.0
+scipy>=1.10.0
+scikit-learn>=1.3.0
+
+# 数据处理和存储
+lmdb>=1.4.0
+natsort>=8.4.0
+tqdm>=4.65.0
+
+# 实验跟踪
+wandb>=0.15.0
+tensorboardX>=2.6
+tensorboard>=2.13.0
+
+# 实用工具
+PyYAML>=6.0.3  # 修复XSS漏洞
+dill>=0.3.6
+pthflops>=0.4.2
+thop>=0.1.1.post2209072238
+warmup-scheduler>=0.3
+
+# NVIDIA CUDA支持 (如果使用GPU)
+nvidia-cublas-cu11>=11.10.3.66
+nvidia-cuda-nvrtc-cu11>=11.7.99
+nvidia-cuda-runtime-cu11>=11.7.99
+nvidia-cudnn-cu11>=8.5.0.96
+
+# 网络请求 (仅保留wandb需要的)
+requests>=2.32.5  # 修复安全漏洞
+urllib3>=2.6.0  # 修复多个2025年CVE
+certifi>=2024.0.0  # 最新证书
+
+# 其他依赖
+GitPython>=3.1.40
+protobuf>=4.21.0
+psutil>=5.9.5
+setproctitle>=1.3.2
