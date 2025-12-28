@@ -334,7 +334,7 @@ def main():
     demo.launch(
         server_name="0.0.0.0",
         server_port=7860,
-        share=False,
+        share=True,  # 改成 True，生成公网访问链接
         show_error=True
     )
 
