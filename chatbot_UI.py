@@ -334,8 +334,9 @@ def main():
     demo.launch(
         server_name="0.0.0.0",
         server_port=7860,
-        share=True,  # 改成 True，生成公网访问链接
-        show_error=True
+        share=False,  # DSW环境无法下载frpc，暂时关闭公网分享
+        show_error=True,
+        inbrowser=True  # 自动在浏览器打开
     )
 
 if __name__ == "__main__":
